@@ -29,14 +29,14 @@ npm start
 ### Instalación con git clone🔧
 _Se puede clonar el repositorio, ingresando a una terminal y ejecutando:_
 ```
-git clone https://github.com/rod77/after_34715.git
+git clone https://github.com/rod77/Clase14_Firebase2.git
 ```
 Luego continuar con el paso 3 de la otra forma 
 
 ## Despliegue 📦
 
 _El mismo fue desplegado en Vercel para que lo vean ejecutando, por si no quieren descargar el proyecto_
-https://after-34715.vercel.app/
+
 
 ## Construido con 🛠️
 
