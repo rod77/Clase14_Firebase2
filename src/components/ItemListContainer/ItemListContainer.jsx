@@ -12,21 +12,10 @@ const ItemListContainer = () => {
   const [items, setItems] = useState() //State donde grabo los items
   const [load, setLoad] = useState(true) //Flag que me permite mostrar un spinner mientras cargo los datos 
 
-  // const getData = async (categoria) => {
-  //   setLoad(true)
-  //   const querydb = getFirestore();
-  //   const queryCollection = collection(querydb, 'Items');
-  //   const resultado = await getDocs(queryCollection)
-  //   const datos = resultado.docs.map(p => ({ id: p.id, ...p.data() }))
-  //   setItems(datos)
-  //   setLoad(false)
-  // } 
-
-
-  const getData = async (categoria) => {
+  const getData = async () => {
     setLoad(true)
     const querydb = getFirestore();
-    const queryCollection = categoria ? query(collection(querydb, 'Items'), where("category", "==", categoria)) : collection(querydb, 'Items');
+    const queryCollection = collection(querydb, 'Items');
     const resultado = await getDocs(queryCollection)
     const datos = resultado.docs.map(p => ({ id: p.id, ...p.data() }))
     setItems(datos)
@@ -34,8 +23,8 @@ const ItemListContainer = () => {
   }
 
   useEffect(() => {
-    getData(categoryId)
-  }, [categoryId])
+    getData()
+  }, [])
 
 
 
