@@ -1,17 +1,27 @@
 import React, { useState, useContext } from 'react'
-
 import ItemCount from '../ItemCount/ItemCount'
 import { Link } from 'react-router-dom';
+import { doc, getFirestore, updateDoc } from 'firebase/firestore';
+import { CartContext } from '../../context/CartContext';
 
 const ItemDetail = ({ item }) => {
-    const [cantidad, setCantidad] = useState(0);
+    const [stock, setStock] = useState(item.stock)
 
+    const { addItem } = useContext(CartContext)
 
 
     const handleOnAdd = (count) => {
-        setCantidad(count)
-        console.log(`Se agregaron ${count} de items del producto ${item.name}`)
+
+        addItem({ id: item.id, price: item.price, name: item.name, img: item.img }, count)
     };
+
+    const handleStock = () => {
+        const querydb = getFirestore()
+        const itemDoc = doc(querydb, "Items", item.id)
+        const stockNuevo = stock + 3
+        updateDoc(itemDoc, { stock: stockNuevo })
+        setStock(stockNuevo)
+    }
 
     return (
         <div className='container detailsStyle'>
@@ -30,12 +40,12 @@ const ItemDetail = ({ item }) => {
                     <br />
                     <br />
                     <br />
-                    <ItemCount stock={item.stock} initial={1} onAdd={handleOnAdd} />
+                    <ItemCount stock={stock} initial={1} onAdd={handleOnAdd} />
                     <br />
                     {/* <div className="row">
                         {cantidad > 0 && <Link to="/cart" className='btn btn_item_count'>Finalizar compra</Link>}
                     </div> */}
-
+                    <button onClick={handleStock}>Aumentar stock en 3</button>
                 </div>
             </div>
         </div>
